@@ -1,0 +1,76 @@
+.navbar_main_container{
+  /* border: 2px solid red; */
+
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+
+  padding: 3em 6em;
+
+  position: fixed;
+  z-index: 995;
+  background-color: white;
+
+  top: 0;
+
+  box-shadow: 0 1px 10px 0px black;
+
+
+}
+
+.navbar_left_container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  /* border: 2px solid yellow; */
+
+}
+
+.navbar_logo_img{
+  width: 200px;
+
+}
+
+.navbar_links_container{
+  width: 70%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
+}
+
+.navbar_link{
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-family: var(--Montserrat);
+  font-weight: 600;
+
+}
+
+.navbar_right_container{
+  /* width: 25%; */
+  display: flex;
+  align-items: center;
+
+}
+/* 
+.navbar_icon_img svg path{
+  fill: white;
+}
+.navbar_icon_img:hover svg path{
+  fill: var(--color-main);
+} */
+
+.navbar_icon_img{
+  width: 25px;
+  margin-right: 3em;
+
+}
+
+.navbar_icon_img:hover{
+  cursor: pointer;
+
+}
