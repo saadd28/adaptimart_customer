@@ -33,3 +33,9 @@ export { default as LandingPageEveryday4 } from "./landing_page_everydaypic4.svg
 export { default as FooterTwitterIcon } from "./footer_twitter_icon.svg";
 export { default as FooterInstagramIcon } from "./footer_instagram_icon.svg";
 export { default as FooterFacebookIcon } from "./footer_facebook_icon.svg";
+
+export { default as CheckoutPathArrow } from "./checkout_path_arrow.png";
+
+export { default as CheckoutPaymentCreditCards } from "./checkout_payment_credit_cards.svg";
+
+export { default as AboutUsPerson1 } from "./about_us_person_1.svg";

@@ -16,10 +16,36 @@ html {
 
 
 input:focus-visible{
-  border: 2px solid #18abb1 !important;
+  border-bottom: 2px solid #18abb1 !important;
   outline: none;
 }
 textarea:focus-visible{
   border: 2px solid #18abb1 !important;
   outline: none;
+}
+
+
+::-webkit-scrollbar {
+  /* background: #eaeaea; */
+  width: 6px;
+  height: 6px;
+  /* border-radius: 50px; */
+
+}
+
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+  margin-top: 0.3em;
+  margin-bottom: 0.5em;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-main);
+  border-radius: 10px;
 }

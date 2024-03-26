@@ -2,7 +2,6 @@ import { LandingPageNewProduct } from "../../../Assets";
 import "./NewProduct.css";
 
 import React from "react";
-
 export default function NewProduct() {
   return (
     <>

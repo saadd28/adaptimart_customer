@@ -1,17 +1,10 @@
 import "./Slideshow.css";
-import {
-  LandingPageBrandsBanner,
-  LandingPageInfoCardBG,
-  LandingPageInfoCardBG2,
-  LandingPageInfoCardBG3,
-  LandingPageInfoCardBG4,
-  LandingPageInfoCardBG5,
-} from "../../Assets";
+import { LandingPageInfoCardBG4, LandingPageInfoCardBG5 } from "../../Assets";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { Typewriter } from "react-simple-typewriter";
 const words = [
   "Step inside, for comfort and magic await you.",
@@ -59,7 +52,7 @@ export default function Slideshow() {
           spaceBetween={30}
           centeredSlides={true}
           autoplay={{
-            delay: 5000,
+            delay: 2000,
             disableOnInteraction: false,
           }}
           pagination={{
@@ -94,7 +87,9 @@ export default function Slideshow() {
                       words={[word]}
                     />
                   </div>
-                  <div className="landing_page_infocard_btn">Shop Now</div>
+                  <button className="landing_page_infocard_btn">
+                    Shop Now
+                  </button>
                 </div>
               </div>
             </SwiperSlide>

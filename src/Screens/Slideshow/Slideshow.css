@@ -57,6 +57,7 @@ width: 100%;
     text-align: center;
     overflow: hidden;
     z-index: 1; /* Set a z-index to ensure the button is above the overlay */
+    border: 1px solid var(--color-main);
 }
 
 /* Button hover effect */

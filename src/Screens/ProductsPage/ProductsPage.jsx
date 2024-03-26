@@ -7,50 +7,51 @@ import {
   LandingPageTopProduct6,
 } from "../../Assets";
 import Slideshow from "../Slideshow/Slideshow";
-import "./CategoriesPage.css";
+import "./ProductsPage.css";
 
 import React, { useState } from "react";
 
-export default function CategoriesPage() {
-  const categories = [
+export default function ProductsPage() {
+  let products = [
     {
-      id: 1,
       image: LandingPageTopProduct1,
-      name: "Category 1",
+      name: "Product 1",
+      price: 100,
     },
     {
-      id: 2,
       image: LandingPageTopProduct2,
-      name: "Category 2",
+      name: "Product 2",
+      price: 100,
     },
     {
-      id: 3,
       image: LandingPageTopProduct3,
-      name: "Category 3",
+      name: "Product 3",
+      price: 100,
     },
     {
-      id: 4,
       image: LandingPageTopProduct4,
-      name: "Category 4",
+      name: "Product 4",
+      price: 100,
     },
     {
-      id: 5,
       image: LandingPageTopProduct5,
-      name: "Category 5",
+      name: "Product 5",
+      price: 100,
     },
     {
-      id: 6,
       image: LandingPageTopProduct6,
-      name: "Category 6",
+      name: "Product 6",
+      price: 100,
     },
   ];
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3; // Number of categories per page
-  const [filteredCategories, setfilteredCategories] = useState(categories);
+  const [filteredProducts, setfilteredProducts] = useState(products);
 
   const handleClickNext = () => {
     setCurrentPage((prevPage) =>
-      Math.min(prevPage + 1, Math.ceil(filteredCategories.length / pageSize))
+      Math.min(prevPage + 1, Math.ceil(filteredProducts.length / pageSize))
     );
   };
 
@@ -63,14 +64,15 @@ export default function CategoriesPage() {
   const endIndex = startIndex + pageSize;
 
   // Slice the products array to get categories for the current page
-  const currentCategories = filteredCategories.slice(startIndex, endIndex);
+  const currentProducts = filteredProducts.slice(startIndex, endIndex);
 
   return (
     <>
       <Slideshow />
+
       <div className="categories_page_top_products_box">
         <div className="categories_page_header">
-          <div className="categories_page_header_title">Categories</div>
+          <div className="categories_page_header_title">Products</div>
 
           <input
             type="text"
@@ -80,25 +82,27 @@ export default function CategoriesPage() {
         </div>
 
         <div className="top_products_container">
-          {currentCategories.map((category) => (
-            <div key={category.id} className="top_products_infocard">
+          {currentProducts.map((product) => (
+            <div className="top_products_infocard">
               <img
-                src={category.image}
+                src={product.image}
                 alt=""
                 className="top_products_infocard_img"
               />
 
               <div className="top_products_infocard_content_container">
                 <div className="top_products_infocard_title">
-                  {category.name}
+                  {product.name}
                 </div>
-                {/* <div className="top_products_infocard_price">
-                  $ {category.price}
-                </div> */}
+                <div className="top_products_infocard_price">
+                  $ {product.price}
+                </div>
               </div>
+              <button className="product_page_infocard_btn">Add to Cart</button>
             </div>
           ))}
         </div>
+
         <div className="categories_page_pagination_buttons">
           <button
             className="categories_page_pagination_btn"
@@ -110,7 +114,7 @@ export default function CategoriesPage() {
           <button
             className="categories_page_pagination_btn"
             onClick={handleClickNext}
-            disabled={endIndex >= filteredCategories.length}
+            disabled={endIndex >= filteredProducts.length}
           >
             Next
           </button>
