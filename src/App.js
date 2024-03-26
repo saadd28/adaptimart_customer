@@ -14,6 +14,10 @@ import ProductsPage from "./Screens/ProductsPage/ProductsPage";
 import Checkout from "./Screens/Checkout/Checkout";
 import CheckoutPayment from "./Screens/CheckoutPayment/CheckoutPayment";
 import AboutUs from "./Screens/AboutUs/AboutUs";
+import EditProfile from "./Screens/EditProfile/EditProfile";
+import Login from "./Screens/Login/Login";
+import SignUp from "./Screens/SignUp/SignUp";
+import ChangePassword from "./Screens/ChangePassword/ChangePassword";
 
 function App() {
   return (
@@ -28,6 +32,10 @@ function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/checkout-payment" element={<CheckoutPayment />} />
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/change-password" element={<ChangePassword />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   AdaptiMartLogo,
   NavbarCartLogo,
@@ -6,13 +6,32 @@ import {
 } from "../../Assets";
 import "./Navbar.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CartPopUp from "../CartPopUp/CartPopUp";
 import { Fade } from "react-reveal";
 
 export default function Navbar() {
   // let [ActiveLink, setActiveLink] = useState(1);
   const [cartpopup, setcartpopup] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownVisible(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -69,12 +88,40 @@ export default function Navbar() {
               </NavLink>
             </div>
           </div>
-          <div className="navbar_right_container">
+          <div className="navbar_right_container" ref={dropdownRef}>
             <img
               src={NavbarProfileLogo}
               alt="Profile Icon"
               className="navbar_icon_img"
+              onClick={toggleDropdown}
             />
+            {dropdownVisible && (
+              <Fade top>
+                <div className="dropdown_menu">
+                  {/* Dropdown menu content goes here */}
+                  <ul>
+                    <li
+                      onClick={() => {
+                        setDropdownVisible(false);
+                        navigate("/edit-profile");
+                      }}
+                    >
+                      Edit Profile
+                    </li>
+                    <li>My Orders</li>
+                    <li
+                      onClick={() => {
+                        setDropdownVisible(false);
+                        navigate("/change-password");
+                      }}
+                    >
+                      Change Password
+                    </li>
+                    <li>Logout</li>
+                  </ul>
+                </div>
+              </Fade>
+            )}
             <img
               src={NavbarCartLogo}
               alt="Cart Icon"

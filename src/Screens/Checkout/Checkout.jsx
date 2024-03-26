@@ -62,7 +62,14 @@ export default function Checkout() {
                 <div className="checkout_label">Contact Information</div>
                 <div className="checkout_label">
                   Already have an account?{" "}
-                  <span className="checkout_login_link">Log in</span>
+                  <span
+                    className="checkout_login_link"
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                  >
+                    Log in
+                  </span>
                 </div>
               </div>
 
@@ -112,7 +119,7 @@ export default function Checkout() {
                 className="checkout_continue_shipping_btn"
                 onClick={(e) => {
                   e.preventDefault();
-                  navigate("/checkout-payment")
+                  navigate("/checkout-payment");
                 }}
               >
                 Continue to Shipping

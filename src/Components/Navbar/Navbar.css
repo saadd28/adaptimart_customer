@@ -55,6 +55,37 @@
   display: flex;
   align-items: center;
 
+  position: relative;
+
+}
+
+.dropdown_menu {
+  position: absolute; /* Position the dropdown menu absolutely */
+  top: calc(100% + 30px); /* Position it below the icon */
+  left: -60px; /* Align it with the left edge of the icon */
+  background-color: white; /* Example background color */
+  border: 1px solid #ccc; /* Example border */
+  padding: 5px; /* Example padding */
+  z-index: 1000; /* Ensure it's above other content */
+  border-radius: 8px;
+}
+
+.dropdown_menu ul {
+  list-style: none; /* Remove default list styles */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.dropdown_menu li {
+  padding: 10px 5px; /* Example padding */
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  width: 150px;
+}
+
+.dropdown_menu li:hover{
+  color: var(--color-main);
 }
 /* 
 .navbar_icon_img svg path{
