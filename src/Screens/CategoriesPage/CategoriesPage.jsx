@@ -1,55 +1,66 @@
-import {
-  LandingPageTopProduct1,
-  LandingPageTopProduct2,
-  LandingPageTopProduct3,
-  LandingPageTopProduct4,
-  LandingPageTopProduct5,
-  LandingPageTopProduct6,
-} from "../../Assets";
+import { AdaptiMartLogoCart } from "../../Assets";
+import { getcategories, getcategoriesbyname } from "../../api/api";
 import Slideshow from "../Slideshow/Slideshow";
 import "./CategoriesPage.css";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function CategoriesPage() {
-  const categories = [
-    {
-      id: 1,
-      image: LandingPageTopProduct1,
-      name: "Category 1",
-    },
-    {
-      id: 2,
-      image: LandingPageTopProduct2,
-      name: "Category 2",
-    },
-    {
-      id: 3,
-      image: LandingPageTopProduct3,
-      name: "Category 3",
-    },
-    {
-      id: 4,
-      image: LandingPageTopProduct4,
-      name: "Category 4",
-    },
-    {
-      id: 5,
-      image: LandingPageTopProduct5,
-      name: "Category 5",
-    },
-    {
-      id: 6,
-      image: LandingPageTopProduct6,
-      name: "Category 6",
-    },
-  ];
+  // const categories = [
+  //   {
+  //     id: 1,
+  //     parent_id: null,
+  //     name: "Mattresses",
+  //     image: "image_1711640064090_matress_1.png",
+  //     action_type: 1,
+  //     created_on: "2024-03-28T15:34:24.000Z",
+  //     edited_on: null,
+  //   },
+  //   {
+  //     id: 2,
+  //     parent_id: null,
+  //     name: "Furniture",
+  //     image: "image_1711640083870_chair.png",
+  //     action_type: 1,
+  //     created_on: "2024-03-28T15:34:43.000Z",
+  //     edited_on: null,
+  //   },
+  // ];
+  const [filteredCategories, setfilteredCategories] = useState([]);
+  let [searchCategoryName, setsearchCategoryName] = useState("");
+
+  const getCategories = () => {
+    getcategories()
+      .then((res) => {
+        console.log("Categories list retrieved", res.data);
+        setfilteredCategories(res.data);
+      })
+      .catch((err) => {
+        console.log("Error fetching Categories list:", err);
+      });
+  };
+
+  const getCategoriesByName = (SearchName) => {
+    let reqObj = {
+      name: SearchName,
+    };
+    console.log("reqObj", reqObj);
+    getcategoriesbyname(SearchName)
+      .then((res) => {
+        console.log("Searched Categories list retrieved");
+        setfilteredCategories(res.data);
+      })
+      .catch((err) => {
+        console.log("Error fetching Searched Categories:", err);
+      });
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3; // Number of categories per page
-  const [
-    filteredCategories,
-    // setfilteredCategories
-  ] = useState(categories);
 
   const handleClickNext = () => {
     setCurrentPage((prevPage) =>
@@ -79,6 +90,12 @@ export default function CategoriesPage() {
             type="text"
             placeholder="Search..."
             className="categories_page_header_input"
+            value={searchCategoryName}
+            onChange={(e) => {
+              setsearchCategoryName((searchCategoryName = e.target.value));
+              console.log("searchCategoryName", searchCategoryName);
+              getCategoriesByName(searchCategoryName);
+            }}
           />
         </div>
 
@@ -86,7 +103,12 @@ export default function CategoriesPage() {
           {currentCategories.map((category) => (
             <div key={category.id} className="top_products_infocard">
               <img
-                src={category.image}
+                // src={category.image}
+                src={
+                  category.image
+                    ? "http://localhost:4000/" + category.image
+                    : AdaptiMartLogoCart
+                }
                 alt=""
                 className="top_products_infocard_img"
               />

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   AdaptiMartLogoWhite,
   FooterFacebookIcon,
@@ -22,6 +23,7 @@ export default function Footer() {
       name: "Classic Mattress",
     },
   ];
+  const navigate = useNavigate();
   return (
     <>
       <Fade bottom>
@@ -47,10 +49,38 @@ export default function Footer() {
             <div className="footer_email">
               <div className="footer_categories_heading">Links</div>
               <div className="footer_category_links_container">
-                <div className="footer_category_name">Home</div>
-                <div className="footer_category_name">Categories</div>
-                <div className="footer_category_name">Products</div>
-                <div className="footer_category_name">About Us</div>
+                <div
+                  className="footer_category_name"
+                  onClick={() => {
+                    navigate("/");
+                  }}
+                >
+                  Home
+                </div>
+                <div
+                  className="footer_category_name"
+                  onClick={() => {
+                    navigate("/categories");
+                  }}
+                >
+                  Categories
+                </div>
+                <div
+                  className="footer_category_name"
+                  onClick={() => {
+                    navigate("/products");
+                  }}
+                >
+                  Products
+                </div>
+                <div
+                  className="footer_category_name"
+                  onClick={() => {
+                    navigate("/about-us");
+                  }}
+                >
+                  About Us
+                </div>
               </div>
             </div>
 
