@@ -103,19 +103,20 @@ export default function Navbar() {
                     <li
                       onClick={() => {
                         setDropdownVisible(false);
+                        navigate("/user-profile");
+                      }}
+                    >
+                      Your Profile
+                    </li>
+                    <li
+                      onClick={() => {
+                        setDropdownVisible(false);
                         navigate("/edit-profile");
                       }}
                     >
                       Edit Profile
                     </li>
-                    <li
-                      onClick={() => {
-                        setDropdownVisible(false);
-                        navigate("/user-profile");
-                      }}
-                    >
-                      My Orders
-                    </li>
+
                     <li
                       onClick={() => {
                         setDropdownVisible(false);

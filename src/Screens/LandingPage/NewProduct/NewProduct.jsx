@@ -11,7 +11,7 @@ export default function NewProduct() {
 
         <img
           src={LandingPageNewProduct}
-          alt="New Product Image"
+          alt="New Product"
           className="new_product_img"
         />
       </div>

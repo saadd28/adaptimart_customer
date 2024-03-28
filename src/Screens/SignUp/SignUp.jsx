@@ -8,7 +8,6 @@ export default function SignUp() {
   let [FirstName, setFirstName] = useState("");
   let [LastName, setLastName] = useState("");
   let [Email, setEmail] = useState("");
-  let [Phone, setPhone] = useState("");
   let [Password, setPassword] = useState("");
   let [Image, setImage] = useState(null);
   const navigate = useNavigate();

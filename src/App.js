@@ -20,6 +20,7 @@ import SignUp from "./Screens/SignUp/SignUp";
 import ChangePassword from "./Screens/ChangePassword/ChangePassword";
 import UserProfile from "./Screens/UserProfile/UserProfile";
 import OrderDetails from "./Screens/OrderDetails/OrderDetails";
+import ProductDetails from "./Screens/ProductDetails/ProductDetails";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/view-order-details" element={<OrderDetails />} />
+          <Route path="/product-details" element={<ProductDetails />} />
         </Routes>
         <Footer />
       </BrowserRouter>

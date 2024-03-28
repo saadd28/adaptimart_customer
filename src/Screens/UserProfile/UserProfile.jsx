@@ -13,13 +13,13 @@ import moment from "moment";
 const OrderTableRow = ({ data, setOrdersList, index, user_data }) => {
   const navigate = useNavigate();
 
-  const editOrder = (data) => {
-    navigate("/edit_order_details", {
-      state: {
-        datatosend: data,
-      },
-    });
-  };
+  // const editOrder = (data) => {
+  //   navigate("/edit_order_details", {
+  //     state: {
+  //       datatosend: data,
+  //     },
+  //   });
+  // };
 
   const viewOrder = (data) => {
     navigate("/view-order-details", {

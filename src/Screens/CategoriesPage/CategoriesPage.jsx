@@ -46,7 +46,10 @@ export default function CategoriesPage() {
   ];
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3; // Number of categories per page
-  const [filteredCategories, setfilteredCategories] = useState(categories);
+  const [
+    filteredCategories,
+    // setfilteredCategories
+  ] = useState(categories);
 
   const handleClickNext = () => {
     setCurrentPage((prevPage) =>

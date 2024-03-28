@@ -5,9 +5,7 @@ import React, { useState } from "react";
 
 export default function Login() {
   let [Email, setEmail] = useState("");
-  let [Phone, setPhone] = useState("");
   let [Password, setPassword] = useState("");
-  let [Image, setImage] = useState(null);
 
   const navigate = useNavigate();
   return (

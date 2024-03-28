@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   LandingPageCategory1,
   LandingPageCategory2,
@@ -8,6 +9,7 @@ import "./Categories.css";
 import React from "react";
 
 export default function Categories() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="categories_box">
@@ -51,7 +53,13 @@ export default function Categories() {
                 King Mattress
               </div>
 
-              <button className="categories_right_column_infocard_button">
+              <button
+                className="categories_right_column_infocard_button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/categories");
+                }}
+              >
                 All Categories
               </button>
             </div>

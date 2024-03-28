@@ -1,10 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import {
-  LandingPageTopProduct1,
-  LandingPageTopProduct2,
-  LandingPageTopProduct3,
-  LandingPageTopProduct4,
-  LandingPageTopProduct5,
-  LandingPageTopProduct6,
+  AdaptiMartLogoCart,
 } from "../../../Assets";
 import "./TopProducts.css";
 
@@ -13,36 +9,177 @@ import React from "react";
 export default function TopProducts() {
   let products = [
     {
-      image: LandingPageTopProduct1,
-      name: "Product 1",
+      id: 1,
+      name: "Classic Mattress",
+      image: "image_1711587039390_Classic Mattress.png",
+      description: "Classic Mattress",
+      overall_discount: 0,
+      item_discount: 0,
       price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T00:50:39.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
     },
     {
-      image: LandingPageTopProduct2,
-      name: "Product 2",
-      price: 100,
+      id: 2,
+      name: "Euro Top Mattress",
+      image: "image_1711587107411_Euro Top Mattress.png",
+      description: "Euro Top Mattress",
+      overall_discount: 0,
+      item_discount: 0,
+      price: 500,
+      unit_price: 500,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T00:51:47.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Jack",
     },
     {
-      image: LandingPageTopProduct3,
-      name: "Product 3",
+      id: 3,
+      name: "Classic Mattress",
+      image: "image_1711600734677_Classic Mattress.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
       price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:38:54.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
     },
     {
-      image: LandingPageTopProduct4,
-      name: "Product 4",
+      id: 4,
+      name: "Classic Mattress",
+      image: "image_1711600739287_Classic Mattress.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
       price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:38:59.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
     },
     {
-      image: LandingPageTopProduct5,
-      name: "Product 5",
+      id: 5,
+      name: "Classic Mattress",
+      image: "image_1711600758549_Classic Mattress.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
       price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:39:18.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
     },
     {
-      image: LandingPageTopProduct6,
-      name: "Product 6",
+      id: 6,
+      name: "Firm Mattress",
+      image: "image_1711600794981_Firm Mattress.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
       price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:39:55.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
+    },
+    {
+      id: 7,
+      name: "Plush Mattress",
+      image: "image_1711600824746_Plush Mattress.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
+      price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:40:24.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
+    },
+    {
+      id: 8,
+      name: "Medium Hybrid Mattress",
+      image: "image_1711600861274_Medium Hybrid Mattress.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
+      price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:41:01.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
+    },
+    {
+      id: 9,
+      name: "King Size Mattress",
+      image: "image_1711600881460_matress_1.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
+      price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:41:21.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
+    },
+    {
+      id: 10,
+      name: "Queen Size Mattress",
+      image: "image_1711600896343_matress_3.png",
+      description: "Top Quality",
+      overall_discount: null,
+      item_discount: 0,
+      price: 100,
+      unit_price: 100,
+      category_id: 1,
+      damage_status: 0,
+      action_type: 1,
+      created_on: "2024-03-28T04:41:36.000Z",
+      edited_on: null,
+      category_name: "Mattresses",
+      supplier_name: "Adam",
     },
   ];
+  const navigate = useNavigate();
 
   return (
     <>
@@ -50,14 +187,38 @@ export default function TopProducts() {
         <div className="top_products_header_container">
           <div className="top_products_heading">Top Products</div>
 
-          <button className="top_products_heading_btn">Shop Now</button>
+          <button
+            className="top_products_heading_btn"
+            onClick={(e) => {
+              e.preventDefault();
+              navigate("products");
+            }}
+          >
+            Shop Now
+          </button>
         </div>
 
         <div className="top_products_container">
-          {products.map((product) => (
-            <div className="top_products_infocard">
+          {products.slice(0, 6).map((product, index) => (
+            <div
+              className="top_products_infocard"
+              key={index}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/product-details", {
+                  state: {
+                    product: product,
+                  },
+                });
+              }}
+            >
               <img
-                src={product.image}
+                // src={product.image}
+                src={
+                  product.image
+                    ? "http://localhost:4000/" + product.image
+                    : AdaptiMartLogoCart
+                }
                 alt=""
                 className="top_products_infocard_img"
               />
@@ -74,7 +235,15 @@ export default function TopProducts() {
           ))}
         </div>
 
-        <button className="top_products_shop_now_btn">Shop Now</button>
+        <button
+          className="top_products_shop_now_btn"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("products");
+          }}
+        >
+          All Products
+        </button>
       </div>
     </>
   );
