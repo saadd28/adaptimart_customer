@@ -1,15 +1,17 @@
 import { useLocation } from "react-router-dom";
 import "./ProductDetails.css";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AdaptiMartLogoCart } from "../../Assets";
 import Fade from "react-reveal";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { ShopContext } from "../../context/ShopContext";
 AOS.init();
 
 export default function ProductDetails() {
   const location = useLocation();
   let product = location.state ? location.state.product : null;
+
   let review_list = [
     {
       id: 2,
@@ -48,6 +50,17 @@ export default function ProductDetails() {
       last_name: "Ahmed",
     },
   ];
+
+  const {
+    cartItems,
+    getTotalCartAmount,
+    checkout,
+    addToCart,
+    removeFromCart,
+    updateCartItemCount,
+  } = useContext(ShopContext);
+
+  const cartItemCount = cartItems[product.id];
   // Calculate the number of filled stars
   const totalRating = 4.3;
   const totalReviews = 3434;
@@ -127,28 +140,32 @@ export default function ProductDetails() {
               <div className="product_details_count_handler">
                 <button
                   className="product_details_count_handler_btn"
-                  //   onClick={() => removeFromCart(id)}
+                  onClick={() => removeFromCart(product.id)}
                 >
                   {" "}
                   -{" "}
                 </button>
                 <input
-                  value={cartValue}
                   className="product_details_count_handler_input"
-                  // value={cartItems[id]}
-                  // onChange={(e) =>
-                  //   updateCartItemCount(Number(e.target.value), id)
-                  // }
+                  value={cartItems[product.id]}
+                  onChange={(e) =>
+                    updateCartItemCount(Number(e.target.value), product.id)
+                  }
                 />
                 <button
                   className="product_details_count_handler_btn"
-                  //   onClick={() => addToCart(id)}
+                  onClick={() => addToCart(product.id)}
                 >
                   {" "}
                   +{" "}
                 </button>
               </div>
-              <div className="product_details_add_to_cart_btn">Add to Cart</div>
+              <div
+                className="product_details_add_to_cart_btn"
+                onClick={() => addToCart(product.id)}
+              >
+                Add to Cart {cartItemCount > 0 && <> ({cartItemCount})</>}
+              </div>
               <hr className="product_details_add_to_cart_btn_sep_desc" />
               <div className="product_details_product_description">
                 {product.description} Lorem ipsum dolor sit amet consectetur,

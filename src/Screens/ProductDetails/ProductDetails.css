@@ -137,6 +137,10 @@
 
 }
 
+.product_details_count_handler_input:focus-visible{
+    border: none !important;
+}
+
 .product_details_add_to_cart_btn{
     padding: 1em 2em;
     color: white;

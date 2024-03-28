@@ -1,12 +1,47 @@
 import "./CheckoutReceipt.css";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Fade from "react-reveal";
+import { AdaptiMartLogoCart } from "../../Assets";
 
-export default function CheckoutReceipt() {
+export default function CheckoutReceipt({ products_list, setSubtotalValue }) {
+  const getSubTotalAmount = () => {
+    let totalAmount = 0;
+    products_list.forEach((product) => {
+      totalAmount += product.price * product.quantity;
+    });
+    return totalAmount;
+  };
+
+  const SubTotal = getSubTotalAmount();
+  setSubtotalValue(SubTotal);
+
   return (
     <>
       <Fade right>
         <div className="checkout_receipt">
+          {products_list.map((product, index) => (
+            <div className="cart_popup_product" key={index}>
+              <img
+                src={
+                  product.image
+                    ? "http://localhost:4000/" + product.image
+                    : AdaptiMartLogoCart
+                }
+                alt=""
+                className="cart_popup_product_img"
+              />
+              <div className="cart_popup_product_content">
+                <div className="cart_popup_product_title">{product.name}</div>
+
+                <div className="checkout_receipt_product_price">
+                  ${product.price * product.quantity}
+                </div>
+                <div className="checkout_receipt_product_price">
+                  Quantity: {product.quantity}
+                </div>
+              </div>
+            </div>
+          ))}
           <div className="checkout_receipt_promo_container">
             <input
               type="text"
@@ -24,7 +59,7 @@ export default function CheckoutReceipt() {
 
           <div className="checkout_receipt_subtotal_box">
             <div className="checkout_receipt_subtotal_text">Subtotal</div>
-            <div className="checkout_receipt_subtotal_amount">$145</div>
+            <div className="checkout_receipt_subtotal_amount">${SubTotal}</div>
           </div>
           <div className="checkout_receipt_subtotal_box">
             <div className="checkout_receipt_subtotal_text">Shipping</div>
@@ -39,7 +74,7 @@ export default function CheckoutReceipt() {
           />
           <div className="checkout_receipt_subtotal_box">
             <div className="checkout_receipt_total_text">Total</div>
-            <div className="checkout_receipt_total_amount">$145</div>
+            <div className="checkout_receipt_total_amount">${SubTotal}</div>
           </div>
         </div>
       </Fade>

@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CheckoutPathArrow } from "../../Assets";
 import CheckoutReceipt from "../../Components/CheckoutReceipt/CheckoutReceipt";
 import PrivacyPolicy from "../../Components/PrivacyPolicy/PrivacyPolicy";
@@ -14,8 +14,19 @@ export default function Checkout() {
   const [shippingpolicy, setshippingpolicy] = useState(false);
   const [privacypolicy, setprivacypolicy] = useState(false);
   const [termsofservice, settermsofservice] = useState(false);
+  const [subTotal, setSubTotal] = useState(0);
+
+  const setSubtotalValue = (subtotalValue) => {
+    setSubTotal(subtotalValue);
+  };
+
+  console.log("Subtotal in prev Componrnt:", subTotal);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const products_list = location.state ? location.state.products_list : null;
+  console.log("products_list received in checkout", products_list);
   return (
     <>
       <RefundPolicy
@@ -167,7 +178,10 @@ export default function Checkout() {
           </div>
         </Fade>
 
-        <CheckoutReceipt />
+        <CheckoutReceipt
+          products_list={products_list}
+          setSubtotalValue={setSubtotalValue}
+        />
         {/* </Fade> */}
       </div>
     </>
