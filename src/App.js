@@ -18,6 +18,8 @@ import EditProfile from "./Screens/EditProfile/EditProfile";
 import Login from "./Screens/Login/Login";
 import SignUp from "./Screens/SignUp/SignUp";
 import ChangePassword from "./Screens/ChangePassword/ChangePassword";
+import UserProfile from "./Screens/UserProfile/UserProfile";
+import OrderDetails from "./Screens/OrderDetails/OrderDetails";
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/user-profile" element={<UserProfile />} />
+          <Route path="/view-order-details" element={<OrderDetails />} />
         </Routes>
         <Footer />
       </BrowserRouter>

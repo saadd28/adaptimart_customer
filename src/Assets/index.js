@@ -39,3 +39,15 @@ export { default as CheckoutPathArrow } from "./checkout_path_arrow.png";
 export { default as CheckoutPaymentCreditCards } from "./checkout_payment_credit_cards.svg";
 
 export { default as AboutUsPerson1 } from "./about_us_person_1.svg";
+
+export { default as UserProfileCustomerIcon } from "./user_profile_customer_icon.svg";
+export { default as UserProfileDateIcon } from "./user_profile_date_icon.svg";
+export { default as UserProfileDeliveredIcon } from "./user_profile_delivered_icon.svg";
+export { default as UserProfileEmailIcon } from "./user_profile_email_icon.svg";
+export { default as UserProfileLocationIcon } from "./user_profile_location_icon.svg";
+export { default as UserProfilePaymentIcon } from "./user_profile_payment_icon.svg";
+export { default as UserProfilePhoneIcon } from "./user_profile_phone_icon.svg";
+export { default as UserProfilePlacedIcon } from "./user_profile_placed_icon.svg";
+export { default as UserProfileProcessedIcon } from "./user_profile_processed_icon.svg";
+export { default as UserProfileShippedIcon } from "./user_profile_shipped_icon.svg";
+export { default as UserProfileShippingIcon } from "./user_profile_shipping_icon.svg";
