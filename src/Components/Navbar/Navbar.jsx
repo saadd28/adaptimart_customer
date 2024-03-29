@@ -16,6 +16,7 @@ export default function Navbar() {
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -28,6 +29,10 @@ export default function Navbar() {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    if (parseInt(localStorage.getItem("userId"))) {
+      setIsLoggedIn(true);
+    }
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -89,12 +94,23 @@ export default function Navbar() {
             </div>
           </div>
           <div className="navbar_right_container" ref={dropdownRef}>
-            <img
-              src={NavbarProfileLogo}
-              alt="Profile Icon"
-              className="navbar_icon_img"
-              onClick={toggleDropdown}
-            />
+            {isLoggedIn ? (
+              <img
+                src={NavbarProfileLogo}
+                alt="Profile Icon"
+                className="navbar_icon_img"
+                onClick={toggleDropdown}
+              />
+            ) : (
+              <div
+                className="navbar_login_signup"
+                onClick={() => {
+                  navigate("/login");
+                }}
+              >
+                Login/Signup
+              </div>
+            )}
             {dropdownVisible && (
               <Fade top>
                 <div className="dropdown_menu">
@@ -125,7 +141,15 @@ export default function Navbar() {
                     >
                       Change Password
                     </li>
-                    <li>Logout</li>
+                    <li
+                      onClick={() => {
+                        localStorage.clear();
+                        setIsLoggedIn(false);
+                        setDropdownVisible(false);
+                      }}
+                    >
+                      Logout
+                    </li>
                   </ul>
                 </div>
               </Fade>

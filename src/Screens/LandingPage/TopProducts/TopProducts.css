@@ -67,13 +67,12 @@
 
 .top_products_infocard:hover{
     box-shadow: 0px 0px 20px 1px var(--color-main);
-    
-    /* background-color: var(--color-main); */
     transform: scale(1.03);
     transition: 0.50s;
 }
 
 .top_products_infocard_img{
+    height: 300px;
     width: 95%;
 
 }

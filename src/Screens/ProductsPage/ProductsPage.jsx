@@ -2,11 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { AdaptiMartLogoCart } from "../../Assets";
 import Slideshow from "../Slideshow/Slideshow";
 import "./ProductsPage.css";
+import { getproductsbyname, gettopproducts } from "../../api/api";
 
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import { getproductsbyname, gettopproducts } from "../../api/api";
 AOS.init();
 
 export default function ProductsPage() {
@@ -90,14 +90,14 @@ export default function ProductsPage() {
           />
         </div>
 
-        <div className="top_products_container">
+        <div
+          className="top_products_container"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           {currentProducts.map((product) => (
-            <div
-              className="top_products_infocard"
-              data-aos="fade-right"
-              data-aos-offset="300"
-              data-aos-easing="ease-in-sine"
-            >
+            <div className="top_products_infocard">
               <img
                 // src={product.image}
                 src={

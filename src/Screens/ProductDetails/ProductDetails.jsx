@@ -61,9 +61,6 @@ export default function ProductDetails() {
     useContext(ShopContext);
 
   const cartItemCount = cartItems[product.id];
-  // Calculate the number of filled stars
-  const totalRating = 4.3;
-  // const totalReviews = 3434;
 
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");

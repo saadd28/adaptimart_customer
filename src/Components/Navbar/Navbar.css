@@ -105,3 +105,16 @@
   cursor: pointer;
 
 }
+
+.navbar_login_signup{
+  margin-right: 3em;
+  font-size: 1.5rem;
+  font-weight: 600;
+
+}
+
+.navbar_login_signup:hover{
+  color: var(--color-main);
+  transition: 0.5s;
+  cursor: pointer;
+}

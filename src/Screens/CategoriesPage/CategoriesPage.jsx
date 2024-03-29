@@ -99,7 +99,12 @@ export default function CategoriesPage() {
           />
         </div>
 
-        <div className="top_products_container">
+        <div
+          className="top_products_container"
+          data-aos="fade-right"
+          data-aos-offset="300"
+          data-aos-easing="ease-in-sine"
+        >
           {currentCategories.map((category) => (
             <div key={category.id} className="top_products_infocard">
               <img
