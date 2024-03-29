@@ -1,5 +1,9 @@
 import "./CheckoutPayment.css";
-import { CheckoutPathArrow, CheckoutPaymentCreditCards } from "../../Assets";
+import {
+  AdaptiMartLogoCart,
+  CheckoutPathArrow,
+  CheckoutPaymentCreditCards,
+} from "../../Assets";
 import CheckoutReceipt from "../../Components/CheckoutReceipt/CheckoutReceipt";
 import PrivacyPolicy from "../../Components/PrivacyPolicy/PrivacyPolicy";
 import RefundPolicy from "../../Components/RefundPolicy/RefundPolicy";
@@ -7,16 +11,88 @@ import ShippingPolicy from "../../Components/ShippingPolicy/ShippingPolicy";
 import TermsOfService from "../../Components/TermsOfService/TermsOfService";
 import React, { useState } from "react";
 import Fade from "react-reveal";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { addorder, adduser } from "../../api/api";
 
 export default function CheckoutPayment() {
   const [refundpolicy, setrefundpolicy] = useState(false);
   const [shippingpolicy, setshippingpolicy] = useState(false);
   const [privacypolicy, setprivacypolicy] = useState(false);
   const [termsofservice, settermsofservice] = useState(false);
+  // eslint-disable-next-line
+  const [subTotal, setSubTotal] = useState(0);
+  // eslint-disable-next-line
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const setSubtotalValue = (subtotalValue) => {
+    setSubTotal(subtotalValue);
+  };
+  // console.log("Subtotal in prev Checkou-paymentt:", subTotal);
 
   const [togglepayment, settogglepayment] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const products_list = location.state ? location.state.products_list : null;
+  const user_data = location.state ? location.state.user_data : null;
+  // console.log("products_list received in checkout-payment", products_list);
+  // console.log("user_data received in checkout-payment", user_data);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (isLoggedIn === false) {
+      let formData = new FormData();
+
+      // Append other form data
+      formData.append("email", user_data.email);
+      formData.append("firstName", user_data.firstName);
+      formData.append("lastName", user_data.lastName);
+      formData.append("phone", user_data.phone);
+      formData.append("country", user_data.country);
+      formData.append("state", user_data.state);
+      formData.append("city", user_data.city);
+      formData.append("postalCode", user_data.postalCode);
+      formData.append("address", user_data.address);
+
+      // Append the dummy image file
+      let dummyImageFile = new File([""], AdaptiMartLogoCart, {
+        type: "image/png",
+      });
+      formData.append("profile_pic", dummyImageFile);
+      console.log([...formData]);
+      adduser(formData)
+        .then((res) => {
+          console.log("User Added", res.data);
+          user_data.id = res.data.insertId;
+
+          let reqObj = {
+            user_id: user_data.id,
+            status: 5,
+            payment_status: togglepayment === 0 ? 0 : 1,
+            products_list: products_list,
+          };
+          addorder(reqObj)
+            .then((res) => {
+              console.log("Order Added", res.data);
+              // user_data.id = res.data.insertId;
+            })
+            .catch((err) => {
+              console.log("Error fetching Adding Order:", err);
+            });
+        })
+        .catch((err) => {
+          console.log("Error fetching Adding user:", err);
+        });
+    }
+
+    // navigate("/checkout-payment", {
+    //   state: {
+    //     products_list: products_list,
+    //     user_data: user_data,
+    //   },
+    // });
+  };
 
   return (
     <>
@@ -72,7 +148,7 @@ export default function CheckoutPayment() {
             <div className="checkout_payment_contact_container">
               <div className="checkout_payment_contact_title">Contact</div>
               <div className="checkout_payment_contact_email">
-                Dummy@gmail.com
+                {user_data.email}
               </div>
             </div>
             <hr />
@@ -81,7 +157,7 @@ export default function CheckoutPayment() {
             <div className="checkout_payment_contact_container">
               <div className="checkout_payment_contact_title">Shipping to</div>
               <div className="checkout_payment_contact_email">
-                Sunnah Lab, 13th Street. 47 W 13th St , New York
+                {user_data.address + ", " + user_data.city}
               </div>
             </div>
             <hr />
@@ -199,9 +275,14 @@ export default function CheckoutPayment() {
               <button
                 className="checkout_payment_footer_payment_btn"
                 onClick={(e) => {
-                  e.preventDefault();
-                  alert("Order has been placed Successfully!");
-                  navigate("/");
+                  handleSubmit(e);
+                  // e.preventDefault();
+                  // if(isLoggedIn === false)
+                  // {
+
+                  // }
+                  // alert("Order has been placed Successfully!");
+                  // navigate("/");
                 }}
               >
                 Place Order
@@ -249,7 +330,11 @@ export default function CheckoutPayment() {
           </div>
         </Fade>
 
-        <CheckoutReceipt />
+        <CheckoutReceipt
+          products_list={products_list}
+          setSubtotalValue={setSubtotalValue}
+          first={false}
+        />
       </div>
     </>
   );

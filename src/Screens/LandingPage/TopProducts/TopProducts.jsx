@@ -194,6 +194,7 @@ export default function TopProducts() {
 
   useEffect(() => {
     getTopProducts();
+    // eslint-disable-next-line
   }, []);
   const navigate = useNavigate();
 

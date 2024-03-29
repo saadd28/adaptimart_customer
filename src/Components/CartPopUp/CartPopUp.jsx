@@ -32,6 +32,7 @@ export default function CartPopUp({ cartpopup, setcartpopup }) {
 
   useEffect(() => {
     getProducts();
+    // eslint-disable-next-line
   }, []);
 
   const handleCheckout = () => {
@@ -121,6 +122,7 @@ export default function CartPopUp({ cartpopup, setcartpopup }) {
             </Fade>
 
             <div className="cart_popup_products_container">
+              {/* eslint-disable-next-line */}
               {products.map((product, index) => {
                 if (cartItems[product.id] !== 0) {
                   console.log("product", product);
@@ -195,6 +197,7 @@ export default function CartPopUp({ cartpopup, setcartpopup }) {
                   onClick={(e) => {
                     e.preventDefault();
                     setcartpopup(false);
+                    checkout(cartItems);
                     handleCheckout();
                   }}
                 >

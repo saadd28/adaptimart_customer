@@ -51,23 +51,13 @@ export default function ProductDetails() {
     },
   ];
 
-  const {
-    cartItems,
-    getTotalCartAmount,
-    checkout,
-    addToCart,
-    removeFromCart,
-    updateCartItemCount,
-  } = useContext(ShopContext);
+  const { cartItems, addToCart, removeFromCart, updateCartItemCount } =
+    useContext(ShopContext);
 
   const cartItemCount = cartItems[product.id];
   // Calculate the number of filled stars
   const totalRating = 4.3;
   const totalReviews = 3434;
-  const [
-    cartValue,
-    // setcartValue
-  ] = useState(0);
 
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");

@@ -19,3 +19,11 @@ export const getcategoriesbyname = (CategoryName) => {
 
   return axios.get(url);
 };
+
+export const adduser = (data) => {
+  return axios.post("http://localhost:4000/api/account/add", data);
+};
+
+export const addorder = (data) => {
+  return axios.post("http://localhost:4000/api/order/add", data);
+};

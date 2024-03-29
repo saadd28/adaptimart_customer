@@ -1,10 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {
-  AdaptiMartLogoCart,
-  LandingPageCategory1,
-  LandingPageCategory2,
-  LandingPageCategory3,
-} from "../../../Assets";
+import { AdaptiMartLogoCart } from "../../../Assets";
 import "./Categories.css";
 
 import React, { useEffect, useState } from "react";
@@ -27,6 +22,7 @@ export default function Categories() {
 
   useEffect(() => {
     getCategories();
+    // eslint-disable-next-line
   }, []);
   return (
     <>

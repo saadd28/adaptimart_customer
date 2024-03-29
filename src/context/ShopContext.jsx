@@ -50,8 +50,14 @@ export const ShopContextProvider = (props) => {
     setCartItems((prev) => ({ ...prev, [itemId]: newAmount }));
   };
 
-  const checkout = () => {
-    setCartItems(getDefaultCart());
+  const checkout = (cartItems) => {
+    const fetchData = async () => {
+      const productsData = await fetchProducts();
+      setProducts(productsData);
+      const defaultCart = getDefaultCart(productsData);
+      setCartItems(defaultCart);
+    };
+    fetchData();
   };
 
   const contextValue = {
