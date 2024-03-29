@@ -1,55 +1,61 @@
 import { useLocation } from "react-router-dom";
 import "./ProductDetails.css";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AdaptiMartLogoCart } from "../../Assets";
 import Fade from "react-reveal";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { ShopContext } from "../../context/ShopContext";
+import {
+  addreview,
+  getreviewratingandtotal,
+  getreviewslistbyproductid,
+} from "../../api/api";
 AOS.init();
 
 export default function ProductDetails() {
   const location = useLocation();
   let product = location.state ? location.state.product : null;
+  console.log("product", product);
 
-  let review_list = [
-    {
-      id: 2,
-      product_id: 1,
-      user_id: 1,
-      review: "bad product",
-      rating: 3,
-      first_name: "Ateeb",
-      last_name: "Ahmed",
-    },
-    {
-      id: 3,
-      product_id: 1,
-      user_id: 1,
-      review: "bad product",
-      rating: 3,
-      first_name: "Ateeb",
-      last_name: "Ahmed",
-    },
-    {
-      id: 4,
-      product_id: 1,
-      user_id: 1,
-      review: "bad product",
-      rating: 3,
-      first_name: "Ateeb",
-      last_name: "Ahmed",
-    },
-    {
-      id: 5,
-      product_id: 1,
-      user_id: 1,
-      review: "bad product",
-      rating: 3,
-      first_name: "Ateeb",
-      last_name: "Ahmed",
-    },
-  ];
+  // let reviewList = [
+  //   {
+  //     id: 2,
+  //     product_id: 1,
+  //     user_id: 1,
+  //     review: "bad product",
+  //     rating: 3,
+  //     first_name: "Ateeb",
+  //     last_name: "Ahmed",
+  //   },
+  //   {
+  //     id: 3,
+  //     product_id: 1,
+  //     user_id: 1,
+  //     review: "bad product",
+  //     rating: 3,
+  //     first_name: "Ateeb",
+  //     last_name: "Ahmed",
+  //   },
+  //   {
+  //     id: 4,
+  //     product_id: 1,
+  //     user_id: 1,
+  //     review: "bad product",
+  //     rating: 3,
+  //     first_name: "Ateeb",
+  //     last_name: "Ahmed",
+  //   },
+  //   {
+  //     id: 5,
+  //     product_id: 1,
+  //     user_id: 1,
+  //     review: "bad product",
+  //     rating: 3,
+  //     first_name: "Ateeb",
+  //     last_name: "Ahmed",
+  //   },
+  // ];
 
   const { cartItems, addToCart, removeFromCart, updateCartItemCount } =
     useContext(ShopContext);
@@ -57,7 +63,7 @@ export default function ProductDetails() {
   const cartItemCount = cartItems[product.id];
   // Calculate the number of filled stars
   const totalRating = 4.3;
-  const totalReviews = 3434;
+  // const totalReviews = 3434;
 
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
@@ -70,6 +76,23 @@ export default function ProductDetails() {
   const handleSubmit = (event) => {
     event.preventDefault();
     // Handle form submission (e.g., send data to backend)
+    setwritingReview(false);
+    let reqobj = {
+      product_id: product.id,
+      user_id: 1,
+      review: reviewText,
+      rating: rating,
+    };
+    addreview(reqobj)
+      .then((res) => {
+        console.log("Review Added", res.data);
+        getReviewRatingAndTotal();
+        getReviewsListByProductId();
+      })
+      .catch((err) => {
+        console.log("Error fetching top products list:", err);
+      });
+
     console.log("Rating:", rating);
     console.log("Review Text:", reviewText);
   };
@@ -92,6 +115,39 @@ export default function ProductDetails() {
 
     return stars;
   };
+
+  const [averageRating, setAverageRating] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [reviewList, setReviewList] = useState([]);
+
+  const getReviewRatingAndTotal = () => {
+    let product_id = product.id;
+    getreviewratingandtotal(product_id)
+      .then((res) => {
+        console.log("Average Rating and Total Reviews retrieved", res.data);
+        setAverageRating(res.data[0].average_rating);
+        setTotalReviews(res.data[0].total_reviews);
+      })
+      .catch((err) => {
+        console.log("Error fetching top products list:", err);
+      });
+  };
+  const getReviewsListByProductId = () => {
+    let product_id = product.id;
+    getreviewslistbyproductid(product_id)
+      .then((res) => {
+        console.log("Reviews List By Product Id retrieved", res.data);
+        setReviewList(res.data);
+      })
+      .catch((err) => {
+        console.log("Error fetching top products list:", err);
+      });
+  };
+  useEffect(() => {
+    getReviewRatingAndTotal();
+    getReviewsListByProductId();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -116,14 +172,14 @@ export default function ProductDetails() {
               </div>
               <div className="product_details_stars_container">
                 <div className="product_details_stars">
-                  {calculate_stars(totalRating)}
+                  {calculate_stars(averageRating)}
                 </div>
                 <div className="product_details_rating_info">
                   <span className="product_details_total_rating">
-                    {totalRating}
+                    {averageRating ? averageRating : 0}
                   </span>
                   <span className="product_details_total_reviews">
-                    ({totalReviews})
+                    ({totalReviews ? totalReviews : 0})
                   </span>
                 </div>
               </div>
@@ -178,14 +234,17 @@ export default function ProductDetails() {
           </div>
 
           <div className="product_details_rating_container">
-            <div className="product_details_rating_value">{totalRating}</div>
+            <div className="product_details_rating_value">
+              {" "}
+              {averageRating ? averageRating : 0}
+            </div>
             <div className="product_details_stars_container">
               <div className="product_details_stars">
-                {calculate_stars(totalRating)}
+                {calculate_stars(averageRating)}
               </div>
             </div>
             <div className="product_details_rating_total_cust">
-              Based on 3,205 reviews
+              Based on {totalReviews ? totalReviews : 0} reviews
             </div>
           </div>
         </div>
@@ -258,7 +317,7 @@ export default function ProductDetails() {
         )}
 
         <div className="all_reviews_container">
-          {review_list.map((review, index) => (
+          {reviewList.map((review, index) => (
             <div
               className="review_container"
               data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
@@ -279,12 +338,7 @@ export default function ProductDetails() {
                   {calculate_stars(review.rating)}
                 </div>
               </div>
-              <div className="review_description">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Eligendi, odit quia cupiditate enim, voluptatem pariatur omnis
-                reiciendis minus ad sed ipsum nihil vel accusamus veniam aliquid
-                iure. Modi, sequi unde.{review.review}
-              </div>
+              <div className="review_description">{review.review}</div>
             </div>
           ))}
         </div>

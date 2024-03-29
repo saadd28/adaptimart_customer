@@ -27,3 +27,19 @@ export const adduser = (data) => {
 export const addorder = (data) => {
   return axios.post("http://localhost:4000/api/order/add", data);
 };
+
+export const getreviewratingandtotal = (ProductId) => {
+  const url = `http://localhost:4000/api/review/gettotal?product_id=${ProductId}`;
+
+  return axios.get(url);
+};
+
+export const getreviewslistbyproductid = (ProductId) => {
+  const url = `http://localhost:4000/api/review/getbypid?product_id=${ProductId}`;
+
+  return axios.get(url);
+};
+
+export const addreview = (data) => {
+  return axios.post("http://localhost:4000/api/review/add", data);
+};
