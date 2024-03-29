@@ -415,3 +415,16 @@
 .write_review_submit_btn:hover {
     color: var(--color-main); 
 }
+
+.mbi_heading{
+    font-size: 4rem;
+    font-weight: 600;
+    padding-bottom: 1em;
+}
+
+.mbi_products_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 5em;
+}

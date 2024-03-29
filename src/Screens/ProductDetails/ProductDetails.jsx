@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./ProductDetails.css";
 import React, { useContext, useEffect, useState } from "react";
 import { AdaptiMartLogoCart } from "../../Assets";
@@ -8,6 +8,8 @@ import "aos/dist/aos.css";
 import { ShopContext } from "../../context/ShopContext";
 import {
   addreview,
+  getmbi,
+  getproductbyid,
   getreviewratingandtotal,
   getreviewslistbyproductid,
 } from "../../api/api";
@@ -65,6 +67,7 @@ export default function ProductDetails() {
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
   const [writingReview, setwritingReview] = useState(false);
+  const navigate = useNavigate();
 
   const handleStarClick = (starValue) => {
     setRating(starValue);
@@ -116,6 +119,7 @@ export default function ProductDetails() {
   const [averageRating, setAverageRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [reviewList, setReviewList] = useState([]);
+  let [mbi, setMBI] = useState([]);
 
   const getReviewRatingAndTotal = () => {
     let product_id = product.id;
@@ -140,11 +144,52 @@ export default function ProductDetails() {
         console.log("Error fetching top products list:", err);
       });
   };
+  const getMBI = () => {
+    let reqObj = {
+      sku_id: product.id,
+    };
+    getmbi(reqObj)
+      .then((res) => {
+        console.log("MBI List retrieved", res.data);
+        setMBI((mbi = res.data.top_products));
+      })
+      .catch((err) => {
+        console.log("Error fetching tMBI list:", err);
+      });
+  };
   useEffect(() => {
     getReviewRatingAndTotal();
     getReviewsListByProductId();
+    getMBI();
     // eslint-disable-next-line
   }, []);
+
+  // Function to fetch product details for each ID in the MBI list
+  const fetchProductDetails = async () => {
+    try {
+      const productDetails = await Promise.all(
+        mbi.map(async (productId) => {
+          const product = await getproductbyid(productId);
+          return product;
+        })
+      );
+      return productDetails;
+    } catch (error) {
+      console.log("Error fetching product details:", error);
+      return [];
+    }
+  };
+
+  let [productDetails, setProductDetails] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setProductDetails((productDetails = await fetchProductDetails()));
+      // const productDetails = await fetchProductDetails();
+      console.log("Product Details:", productDetails);
+      // Now you have product details, you can use them in your UI
+    };
+    fetchData();
+  }, [mbi]);
 
   return (
     <>
@@ -336,6 +381,50 @@ export default function ProductDetails() {
                 </div>
               </div>
               <div className="review_description">{review.review}</div>
+            </div>
+          ))}
+        </div>
+        <div className="mbi_heading">Frequently Bought Together</div>
+        <div className="mbi_products_container">
+          {productDetails.map((product) => (
+            <div
+              className="top_products_infocard"
+              // style={{
+              //   width: "30%",
+              // }}
+            >
+              <img
+                // src={product.image}
+                src={
+                  product.data[0].image
+                    ? "http://localhost:4000/" + product.data[0].image
+                    : AdaptiMartLogoCart
+                }
+                alt=""
+                className="top_products_infocard_img"
+              />
+
+              <div className="top_products_infocard_content_container">
+                <div className="top_products_infocard_title">
+                  {product.data[0].name}
+                </div>
+                <div className="top_products_infocard_price">
+                  $ {product.data[0].price}
+                </div>
+              </div>
+              <button
+                className="product_page_infocard_btn"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate("/product-details", {
+                    state: {
+                      product: product.data[0],
+                    },
+                  });
+                }}
+              >
+                View Product
+              </button>
             </div>
           ))}
         </div>

@@ -55,3 +55,16 @@ export const getcouponbycode = (Code) => {
 
   return axios.get(url);
 };
+
+export const getmbi = (data) => {
+  const url = "http://localhost:8002/market_basket_analysis/";
+
+  // Make a GET request with the constructed URL
+  return axios.post(url, data);
+};
+
+export const getproductbyid = (Id) => {
+  const url = `http://localhost:4000/api/product/getbyid?id=${Id}`;
+
+  return axios.get(url);
+};
