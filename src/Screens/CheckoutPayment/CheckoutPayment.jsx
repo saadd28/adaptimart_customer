@@ -75,6 +75,8 @@ export default function CheckoutPayment() {
           addorder(reqObj)
             .then((res) => {
               console.log("Order Added", res.data);
+              alert("Order Placed Successfully!");
+              navigate("/");
               // user_data.id = res.data.insertId;
             })
             .catch((err) => {

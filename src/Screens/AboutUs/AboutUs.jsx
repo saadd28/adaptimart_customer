@@ -25,16 +25,12 @@ export default function AboutUs() {
 
                 <div className="team_points_container">
                   <div className="team_intro_point">
-                    Hello, I'm Saad Khan, the Lead Web Developer steering the
-                    course of this project. My multifaceted role extends beyond
-                    coding; I've meticulously automated our data pipeline,
-                    ensuring seamless operations and unwavering precision.
-                    Moreover, I've played a pivotal role in advancing the AI
-                    components, collaborating with the team to sculpt
-                    intelligent functionalities that elevate our project to new
-                    heights. With an unwavering commitment to excellence, I
-                    strive to push boundaries, delivering innovative digital
-                    solutions that leave a lasting impact..
+                    Hi there, I'm Saad Khan, the Lead Web Developer for this
+                    project. Besides coding, I've automated our data process to
+                    make things run smoothly and accurately. I've also worked on
+                    improving our AI features, working closely with the team to
+                    make our project smarter. I'm dedicated to pushing limits
+                    and creating digital solutions that really stand out.
                   </div>
 
                   {/* {data.intro.map((data, index) => (
